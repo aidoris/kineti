@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+echo "pre-commit: running bun run build..."
+bun run build

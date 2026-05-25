@@ -2,5 +2,5 @@
   // Commit attribution is NOT controlled here. Use:
   // 1. Cursor Settings → Agents → Attribution (toggle Commit/PR attribution OFF)
   // 2. ~/.cursor/cli-config.json → attribution.attributeCommitsToAgent: false
-  // 3. Repo hook: run `bun run setup:git-hooks` (uses .githooks/prepare-commit-msg)
+  // 3. Repo hooks: run `bun run setup:git-hooks` (pre-commit: build, prepare-commit-msg: strip attribution)
 }
