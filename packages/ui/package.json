@@ -12,6 +12,13 @@
   "bugs": {
     "url": "https://github.com/aidoris/kineti/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "src"
+  ],
   "scripts": {
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",

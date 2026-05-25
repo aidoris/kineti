@@ -12,6 +12,13 @@
   "bugs": {
     "url": "https://github.com/aidoris/kineti/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
   "bin": {
     "kineti": "./dist/index.js"
   },

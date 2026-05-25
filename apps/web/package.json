@@ -12,6 +12,17 @@
   "bugs": {
     "url": "https://github.com/aidoris/kineti/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "bin",
+    ".output"
+  ],
+  "bin": {
+    "kineti-web": "./bin/start.mjs"
+  },
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
