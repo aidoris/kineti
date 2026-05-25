@@ -2,7 +2,16 @@
   "name": "@aidoris/kineti-web",
   "version": "0.0.1",
   "type": "module",
-  "private": true,
+  "author": "Pranav Sukumara Kurup <pranavs.nkm@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidoris/kineti.git",
+    "directory": "apps/web"
+  },
+  "homepage": "https://github.com/aidoris/kineti#readme",
+  "bugs": {
+    "url": "https://github.com/aidoris/kineti/issues"
+  },
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
