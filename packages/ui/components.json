@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-mira",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "phosphor",
+  "aliases": {
+    "components": "@aidoris/kineti-ui/components",
+    "utils": "@aidoris/kineti-ui/lib/utils",
+    "hooks": "@aidoris/kineti-ui/hooks",
+    "lib": "@aidoris/kineti-ui/lib",
+    "ui": "@aidoris/kineti-ui/components"
+  },
+  "rtl": false,
+  "menuColor": "default",
+  "menuAccent": "bold"
+}
