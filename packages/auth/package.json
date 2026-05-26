@@ -1,0 +1,49 @@
+{
+  "name": "@aidoris/kineti-auth",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "Pranav Sukumara Kurup <pranavs.nkm@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidoris/kineti.git",
+    "directory": "packages/auth"
+  },
+  "homepage": "https://github.com/aidoris/kineti#readme",
+  "bugs": {
+    "url": "https://github.com/aidoris/kineti/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "src"
+  ],
+  "scripts": {
+    "auth:generate-schema": "better-auth generate --config ./src/auth.generate.ts --output ../db/src/schema/auth.ts --yes",
+    "lint": "eslint",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aidoris/kineti-db": "workspace:*",
+    "@better-auth/drizzle-adapter": "catalog:",
+    "better-auth": "catalog:"
+  },
+  "devDependencies": {
+    "@better-auth/cli": "^1.4.21",
+    "@tanstack/eslint-config": "catalog:",
+    "@types/node": "catalog:",
+    "drizzle-orm": "catalog:",
+    "eslint": "catalog:",
+    "postgres": "catalog:",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./auth": "./src/auth.ts",
+    "./client": "./src/client.ts",
+    "./env": "./src/env.ts"
+  }
+}
