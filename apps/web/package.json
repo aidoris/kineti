@@ -29,7 +29,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint",
-    "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -38,6 +37,7 @@
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-plugin": "catalog:",
+    "@aidoris/kineti-db": "workspace:*",
     "@aidoris/kineti-ui": "workspace:*",
     "nitro": "catalog:",
     "react": "catalog:",
