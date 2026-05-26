@@ -21,7 +21,7 @@ const resolveMigrationsFolder = (override?: string): string => {
   try {
     return join(
       dirname(require.resolve("@aidoris/kineti-db/package.json")),
-      "migrations",
+      "migrations"
     )
   } catch {
     // Nitro production bundle: SQL files are copied to `.output/server/migrations`.
@@ -42,7 +42,7 @@ export type RunMigrationsOptions = {
  * @see https://github.com/drizzle-team/drizzle-orm/blob/main/drizzle-orm/src/postgres-js/README.md
  */
 export const runMigrations = async (
-  options: RunMigrationsOptions = {},
+  options: RunMigrationsOptions = {}
 ): Promise<void> => {
   const migrationsFolder = resolveMigrationsFolder(options.migrationsFolder)
   const migrationJournal = join(migrationsFolder, "meta/_journal.json")

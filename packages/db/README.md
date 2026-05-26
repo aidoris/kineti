@@ -57,24 +57,20 @@ await runMigrations()
 Import schema types and table definitions:
 
 ```ts
-import { dummy } from "@aidoris/kineti-db/schema"
+import { user, session } from "@aidoris/kineti-db/schema"
 // or
 import * as schema from "@aidoris/kineti-db/schema"
 ```
 
 ## Schema
 
-Tables live in [`src/schema/tables.ts`](./src/schema/tables.ts). Example (`dummy`):
+Better Auth tables (`user`, `session`, `account`, `verification`) live in [`src/schema/auth.ts`](./src/schema/auth.ts). Regenerate from [`@aidoris/kineti-auth`](../auth) with `bun run auth:generate-schema`, then run `db:generate` here.
 
-| Column | Type |
-| --- | --- |
-| `id` | `serial` primary key |
-| `label` | `text` not null |
-| `created_at` | `timestamptz` not null, default now |
+Add new app tables in `src/schema/` (e.g. `src/schema/foo.ts`) and re-export from [`src/schema/index.ts`](./src/schema/index.ts).
 
 ## Schema and migrations
 
-1. Edit [`src/schema/tables.ts`](./src/schema/tables.ts) with `pgTable` from `drizzle-orm/pg-core`.
+1. Add or edit table definitions under [`src/schema/`](./src/schema/) with `pgTable` from `drizzle-orm/pg-core`.
 2. Generate SQL migrations (requires `DATABASE_URL`):
 
    ```bash
@@ -111,6 +107,7 @@ Generated files: [`migrations/`](./migrations/) (SQL + `meta/_journal.json`).
 | `@aidoris/kineti-db/client` | `createDb` and types |
 | `@aidoris/kineti-db/migrate` | `runMigrations` |
 | `@aidoris/kineti-db/schema` | Table definitions |
+| `@aidoris/kineti-db/schema/auth` | Better Auth tables |
 | `@aidoris/kineti-db/schema/*` | Individual schema modules |
 
 ## Development
