@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router"
 import { useState } from "react"
 import { Button } from "@aidoris/kineti-ui/components/button"
+import { login } from "@/i18n/login"
 import { authClient } from "@/lib/auth-client"
 
 export const Route = createFileRoute("/login")({
@@ -59,17 +60,15 @@ function LoginPage() {
     <main className="container mx-auto flex min-h-svh max-w-md flex-col justify-center gap-6 p-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-xl font-medium">
-          {mode === "sign-in" ? "Sign in" : "Create account"}
+          {mode === "sign-in" ? login.signInTitle() : login.signUpTitle()}
         </h1>
-        <p className="text-muted-foreground text-sm">
-          Email and password auth via Better Auth.
-        </p>
+        <p className="text-muted-foreground text-sm">{login.description()}</p>
       </div>
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {mode === "sign-up" ? (
           <label className="flex flex-col gap-1.5 text-sm">
-            <span>Name</span>
+            <span>{login.nameLabel()}</span>
             <input
               className="border-input bg-background ring-offset-background focus-visible:ring-ring rounded-md border px-3 py-2 outline-none focus-visible:ring-2"
               type="text"
@@ -83,7 +82,7 @@ function LoginPage() {
         ) : null}
 
         <label className="flex flex-col gap-1.5 text-sm">
-          <span>Email</span>
+          <span>{login.emailLabel()}</span>
           <input
             className="border-input bg-background ring-offset-background focus-visible:ring-ring rounded-md border px-3 py-2 outline-none focus-visible:ring-2"
             type="email"
@@ -96,7 +95,7 @@ function LoginPage() {
         </label>
 
         <label className="flex flex-col gap-1.5 text-sm">
-          <span>Password</span>
+          <span>{login.passwordLabel()}</span>
           <input
             className="border-input bg-background ring-offset-background focus-visible:ring-ring rounded-md border px-3 py-2 outline-none focus-visible:ring-2"
             type="password"
@@ -117,41 +116,41 @@ function LoginPage() {
 
         <Button type="submit" disabled={isPending}>
           {isPending
-            ? "Please wait…"
+            ? login.submit.wait()
             : mode === "sign-in"
-              ? "Sign in"
-              : "Sign up"}
+              ? login.submit.signIn()
+              : login.submit.signUp()}
         </Button>
       </form>
 
       <p className="text-muted-foreground text-sm">
         {mode === "sign-in" ? (
           <>
-            No account?{" "}
+            {login.noAccount()}{" "}
             <button
               type="button"
               className="text-foreground underline"
               onClick={() => setMode("sign-up")}
             >
-              Sign up
+              {login.signUpLink()}
             </button>
           </>
         ) : (
           <>
-            Already have an account?{" "}
+            {login.hasAccount()}{" "}
             <button
               type="button"
               className="text-foreground underline"
               onClick={() => setMode("sign-in")}
             >
-              Sign in
+              {login.signInLink()}
             </button>
           </>
         )}
       </p>
 
       <Link to="/" className="text-muted-foreground text-sm underline">
-        Back to home
+        {login.backHome()}
       </Link>
     </main>
   )
