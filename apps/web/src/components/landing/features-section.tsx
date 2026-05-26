@@ -1,4 +1,8 @@
-import { GlobeIcon, LightningIcon, ShieldCheckIcon } from "@phosphor-icons/react"
+import {
+  ChatCircleDotsIcon,
+  PlugsConnectedIcon,
+  TagIcon,
+} from "@phosphor-icons/react"
 import {
   Card,
   CardDescription,
@@ -9,19 +13,19 @@ import { index } from "@/i18n/index"
 
 const features = [
   {
-    icon: ShieldCheckIcon,
-    title: () => index.features.auth.title(),
-    description: () => index.features.auth.description(),
+    icon: PlugsConnectedIcon,
+    title: () => index.features.providers.title(),
+    description: () => index.features.providers.description(),
   },
   {
-    icon: GlobeIcon,
-    title: () => index.features.i18n.title(),
-    description: () => index.features.i18n.description(),
+    icon: TagIcon,
+    title: () => index.features.models.title(),
+    description: () => index.features.models.description(),
   },
   {
-    icon: LightningIcon,
-    title: () => index.features.ui.title(),
-    description: () => index.features.ui.description(),
+    icon: ChatCircleDotsIcon,
+    title: () => index.features.chat.title(),
+    description: () => index.features.chat.description(),
   },
 ] as const
 

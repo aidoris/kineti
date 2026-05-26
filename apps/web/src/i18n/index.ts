@@ -2,6 +2,8 @@ import { m } from "@/paraglide/messages.js"
 
 /** Messages for `src/routes/index.tsx` */
 export const index = {
+  pageTitle: m["index.page_title"],
+  metaDescription: m["index.meta_description"],
   loading: m["index.loading"],
   hero: {
     badge: m["index.hero.badge"],
@@ -19,17 +21,17 @@ export const index = {
   },
   features: {
     heading: m["index.features.heading"],
-    auth: {
-      title: m["index.features.auth.title"],
-      description: m["index.features.auth.description"],
+    providers: {
+      title: m["index.features.providers.title"],
+      description: m["index.features.providers.description"],
     },
-    i18n: {
-      title: m["index.features.i18n.title"],
-      description: m["index.features.i18n.description"],
+    models: {
+      title: m["index.features.models.title"],
+      description: m["index.features.models.description"],
     },
-    ui: {
-      title: m["index.features.ui.title"],
-      description: m["index.features.ui.description"],
+    chat: {
+      title: m["index.features.chat.title"],
+      description: m["index.features.chat.description"],
     },
   },
 } as const

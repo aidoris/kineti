@@ -21,6 +21,10 @@ export const Route = createRootRoute({
       {
         title: root.appTitle(),
       },
+      {
+        name: "description",
+        content: root.appDescription(),
+      },
     ],
     links: [
       {

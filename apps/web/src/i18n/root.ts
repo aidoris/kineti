@@ -3,6 +3,8 @@ import { m } from "@/paraglide/messages.js"
 /** Messages for `src/routes/__root.tsx` */
 export const root = {
   appTitle: m["root.app_title"],
+  appDescription: m["root.app_description"],
+  documentTitle: m["root.document_title"],
   nav: {
     home: m["root.nav.home"],
     login: m["root.nav.login"],

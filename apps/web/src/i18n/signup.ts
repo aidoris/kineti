@@ -2,6 +2,8 @@ import { m } from "@/paraglide/messages.js"
 
 /** Messages for `src/routes/signup.tsx` */
 export const signup = {
+  pageTitle: m["signup.page_title"],
+  metaDescription: m["signup.meta_description"],
   signUpTitle: m["signup.sign_up_title"],
   description: m["signup.description"],
   nameLabel: m["signup.name_label"],

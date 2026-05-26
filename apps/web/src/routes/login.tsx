@@ -12,11 +12,18 @@ import { Input } from "@aidoris/kineti-ui/components/input"
 import { SubmitButton } from "@/components/auth/submit-button"
 import { AuthPageLayout } from "@/components/auth-page-layout"
 import { login } from "@/i18n/login"
+import { root } from "@/i18n/root"
 import { authClient } from "@/lib/auth-client"
+import { createPageHead } from "@/lib/page-head"
 import { redirectIfAuthenticated } from "@/lib/redirect-if-authenticated"
 
 export const Route = createFileRoute("/login")({
   beforeLoad: redirectIfAuthenticated,
+  head: () =>
+    createPageHead(
+      root.documentTitle({ page: login.pageTitle() }),
+      login.metaDescription(),
+    ),
   component: LoginPage,
 })
 
