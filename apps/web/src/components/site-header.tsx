@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router"
-import { Button, buttonVariants } from "@aidoris/kineti-ui/components/button"
+import { buttonVariants } from "@aidoris/kineti-ui/components/button"
 import { cn } from "@aidoris/kineti-ui/lib/utils"
 import { LocaleSwitcher } from "@/components/locale-switcher"
+import { UserProfileMenu } from "@/components/user-profile-menu"
 import { useAppSession } from "@/hooks/use-app-session"
 import { root } from "@/i18n/root"
 
@@ -25,28 +26,18 @@ export const SiteHeader = () => {
             className="hidden items-center gap-1 sm:flex"
             aria-label="Main"
           >
-            <Link
-              to="/"
-              activeProps={{ className: "text-foreground font-medium" }}
-              activeOptions={{ exact: true }}
-              className={navLinkClass}
-            >
-              {root.nav.home()}
-            </Link>
           </nav>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
           <LocaleSwitcher />
           {isPending ? null : session ? (
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={signOut}
-            >
-              {root.nav.signOut()}
-            </Button>
+            <UserProfileMenu
+              name={session.user.name}
+              email={session.user.email}
+              image={session.user.image}
+              onSignOut={signOut}
+            />
           ) : (
             <>
               <Link
