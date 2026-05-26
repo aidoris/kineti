@@ -1,6 +1,6 @@
 # @aidoris/kineti-web
 
-Production web application for Kineti — [TanStack Start](https://tanstack.com/start), Vite 7, React 19, Tailwind CSS v4, and [Nitro](https://nitro.build) for the Node server bundle.
+Production web app for **Kineti** — configure multiple AI providers, then chat with any registered model or model alias. Built with [TanStack Start](https://tanstack.com/start), Vite 7, React 19, Tailwind CSS v4, and [Nitro](https://nitro.build) for the Node server bundle.
 
 ## Dependencies
 

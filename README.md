@@ -1,6 +1,8 @@
 # Kineti
 
-Monorepo for **Kineti** — a Bun + Turborepo workspace with a TanStack Start web app, shared UI and database packages, and a CLI.
+**Kineti** is a product for configuring multiple AI providers. Connect the providers you use, register models (or friendly aliases), and chat with any of them from one workspace—switching between OpenAI, Anthropic, Google, and others without leaving the app.
+
+This repository is the Bun + Turborepo monorepo: TanStack Start web app, shared UI and database packages, encrypted provider API keys, and a CLI.
 
 | Package | Path | Description |
 | --- | --- | --- |
@@ -8,7 +10,7 @@ Monorepo for **Kineti** — a Bun + Turborepo workspace with a TanStack Start we
 | `@aidoris/kineti-auth` | [`packages/auth`](./packages/auth) | Better Auth, env helpers, AI provider API key encryption |
 | `@aidoris/kineti-db` | [`packages/db`](./packages/db) | Drizzle ORM schema, migrations, PostgreSQL client |
 | `@aidoris/kineti-ui` | [`packages/ui`](./packages/ui) | Shared React UI components |
-| `@aidoris/kineti-web` | [`apps/web`](./apps/web) | TanStack Start + Nitro production app |
+| `@aidoris/kineti-web` | [`apps/web`](./apps/web) | Multi-provider AI chat UI (TanStack Start + Nitro) |
 | `@aidoris/kineti-cli` | [`apps/cli`](./apps/cli) | `kineti` command-line tool |
 
 ## Requirements
