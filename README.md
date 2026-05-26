@@ -88,7 +88,7 @@ Git hooks under `.githooks/` run `bun run build` on pre-commit and are installed
 
 ## Database workflow
 
-1. Define tables in [`packages/db/src/schema/tables.ts`](./packages/db/src/schema/tables.ts).
+1. Define tables in [`packages/db/src/schema/`](./packages/db/src/schema/) and export from `index.ts`.
 2. Generate migrations: `cd packages/db && bun run db:generate`
 3. Start the web app — pending migrations apply automatically via [`apps/web/server/plugins/00-db-migrate.ts`](./apps/web/server/plugins/00-db-migrate.ts).
 
