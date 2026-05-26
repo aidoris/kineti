@@ -27,6 +27,36 @@ const child = spawn(process.execPath, [serverEntry], {
   },
 })
 
+let forceKillTimer
+let isShuttingDown = false
+
+const clearForceKill = () => {
+  if (forceKillTimer) {
+    clearTimeout(forceKillTimer)
+    forceKillTimer = undefined
+  }
+}
+
 child.on("exit", (code) => {
+  clearForceKill()
   process.exit(code ?? 0)
 })
+
+const handleSignal = (signal) => {
+  if (isShuttingDown) {
+    child.kill("SIGKILL")
+    process.exit(1)
+    return
+  }
+
+  isShuttingDown = true
+  child.kill(signal)
+
+  forceKillTimer = setTimeout(() => {
+    child.kill("SIGKILL")
+    process.exit(1)
+  }, 10_000)
+}
+
+process.on("SIGINT", () => handleSignal("SIGINT"))
+process.on("SIGTERM", () => handleSignal("SIGTERM"))
