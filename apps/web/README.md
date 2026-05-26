@@ -8,7 +8,7 @@ Production web application for Kineti — [TanStack Start](https://tanstack.com/
 | --- | --- |
 | [`@aidoris/kineti-ui`](../packages/ui) | Shared components and styles |
 | [`@aidoris/kineti-db`](../packages/db) | PostgreSQL via Drizzle ORM |
-| [`@aidoris/kineti-auth`](../packages/auth) | Better Auth (Drizzle + TanStack Start cookies) |
+| [`@aidoris/kineti-auth`](../packages/auth) | Better Auth, TanStack Start cookies, AI provider API key encryption |
 
 ## Database migrations
 
@@ -16,7 +16,7 @@ On server start, [`server/plugins/00-db-migrate.ts`](./server/plugins/00-db-migr
 
 - Uses the [postgres.js migrator](https://github.com/drizzle-team/drizzle-orm/blob/main/drizzle-orm/src/postgres-js/README.md) (`max: 1` + advisory lock)
 - Blocks incoming requests until migrations finish
-- Logs `[kineti-web] applying database migrations...` and completion timing
+- Logs `[kineti-web] applying database migrations...` then `[kineti-web] database migrations ready (<ms>)`
 
 Production builds copy `packages/db/migrations` into `.output/server/migrations` during the Nitro `compiled` hook (see [`vite.config.ts`](./vite.config.ts)).
 
@@ -40,7 +40,7 @@ npx kineti-web
 PORT=8080 npx kineti-web
 ```
 
-Set `DATABASE_URL` in the environment. For a local `.env` file:
+Set required environment variables (see [Environment](#environment)). For a local `.env` file:
 
 ```bash
 node --env-file=../../.env .output/server/index.mjs
@@ -48,22 +48,26 @@ node --env-file=../../.env .output/server/index.mjs
 
 ## Environment
 
+Copy [`.env.example`](../../.env.example) to `.env` at the repo root. In the monorepo, Vite `envDir` points at the repo root so `vite dev` loads [`.env`](../../.env) automatically.
+
 | Variable | Default | Description |
 | --- | --- | --- |
 | `DATABASE_URL` | — | PostgreSQL connection string (required) |
-| `BETTER_AUTH_SECRET` | — | Auth signing secret (32+ chars) |
+| `BETTER_AUTH_SECRET` | — | Better Auth signing secret (32+ chars, `openssl rand -base64 32`) |
 | `BETTER_AUTH_URL` | — | Public app URL (e.g. `http://localhost:3000`) |
 | `VITE_BETTER_AUTH_URL` | — | Same as `BETTER_AUTH_URL` for the browser client |
+| `AI_PROVIDER_SECRETS_ACTIVE_KEY_ID` | — | Active key id for encrypted provider API keys (required when persisting provider keys) |
+| `AI_PROVIDER_SECRETS_KEYS` | — | JSON key ring (`{"v1":"<base64-32-bytes>"}`) — see [`packages/auth`](../packages/auth) |
 | `PORT` / `NITRO_PORT` | `3000` | HTTP listen port |
 
-In the monorepo, Vite `envDir` points at the repo root so `vite dev` loads [`.env`](../../.env) automatically.
+`AI_PROVIDER_SECRETS_*` is used by `@aidoris/kineti-auth/secrets` when storing or reading `ai_provider_configuration.api_key_ciphertext`.
 
 ## Development (monorepo)
 
 ```bash
 # from repo root — start Postgres first
 docker compose up -d
-cp .env.example .env   # if needed
+cp .env.example .env   # set BETTER_AUTH_SECRET and AI_PROVIDER_SECRETS_KEYS
 
 bun run dev --filter=@aidoris/kineti-web
 
@@ -81,7 +85,9 @@ After changing the schema in `@aidoris/kineti-db`, run `bun run db:generate` in 
 - **Bundler:** Vite + `@vitejs/plugin-react`
 - **Server:** Nitro (`node-server` preset) → `.output/server/index.mjs`
 - **Styling:** Tailwind v4 via `@tailwindcss/vite`
+- **i18n:** Paraglide JS (`project.inlang/`, compiled to `src/paraglide/`)
 - **Database:** Drizzle ORM + postgres.js via `@aidoris/kineti-db`
+- **Auth:** Better Auth via `@aidoris/kineti-auth`
 
 ## Server layout
 
@@ -91,12 +97,14 @@ apps/web/
 │   └── plugins/
 │       └── 00-db-migrate.ts   # runtime migrations
 ├── src/                       # TanStack Start app
+├── project.inlang/            # inlang / Paraglide project (source)
 └── vite.config.ts
 ```
 
 ## Links
 
 - [Monorepo root](../../README.md)
+- [@aidoris/kineti-auth](../../packages/auth/README.md)
 - [@aidoris/kineti-db](../../packages/db/README.md)
 - [Repository](https://github.com/aidoris/kineti/tree/main/apps/web)
 - [Issues](https://github.com/aidoris/kineti/issues)

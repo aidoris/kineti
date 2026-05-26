@@ -57,16 +57,26 @@ await runMigrations()
 Import schema types and table definitions:
 
 ```ts
-import { user, session } from "@aidoris/kineti-db/schema"
-// or
+import { user, session, aiProvider, aiProviderConfiguration } from "@aidoris/kineti-db/schema"
+// or per-module
+import { aiChatSession } from "@aidoris/kineti-db/schema/ai-chat"
+// or barrel
 import * as schema from "@aidoris/kineti-db/schema"
 ```
 
 ## Schema
 
-Better Auth tables (`user`, `session`, `account`, `verification`) live in [`src/schema/auth.ts`](./src/schema/auth.ts). Regenerate from [`@aidoris/kineti-auth`](../auth) with `bun run auth:generate-schema`, then run `db:generate` here.
+| Module | File | Contents |
+| --- | --- | --- |
+| Auth (Better Auth) | [`src/schema/auth.ts`](./src/schema/auth.ts) | `user`, `session`, `account`, `verification` |
+| AI providers | [`src/schema/ai-provider.ts`](./src/schema/ai-provider.ts) | Providers, configurations (`api_key_ciphertext`), models, costs, usage |
+| AI chat | [`src/schema/ai-chat.ts`](./src/schema/ai-chat.ts) | Presets, sessions, messages, attachments |
+
+Regenerate auth tables from [`@aidoris/kineti-auth`](../auth) with `bun run auth:generate-schema` in `packages/auth`, then run `db:generate` here.
 
 Add new app tables in `src/schema/` (e.g. `src/schema/foo.ts`) and re-export from [`src/schema/index.ts`](./src/schema/index.ts).
+
+Provider API keys are stored encrypted — encryption/decryption is handled by [`@aidoris/kineti-auth/secrets`](../auth) (not in this package).
 
 ## Schema and migrations
 
@@ -86,6 +96,15 @@ Add new app tables in `src/schema/` (e.g. `src/schema/foo.ts`) and re-export fro
      bun run db:migrate
      ```
 
+Current migrations in [`migrations/`](./migrations/):
+
+| Tag | Description |
+| --- | --- |
+| `0000_initial` | Auth tables |
+| `0001_ai_provider` | AI provider tables |
+| `0002_ai_chat` | AI chat tables |
+| `0003_api_key_ciphertext` | Rename `api_key` → `api_key_ciphertext`, add `encryption_key_id` |
+
 ### Drizzle Kit scripts
 
 | Script | Description |
@@ -103,11 +122,13 @@ Generated files: [`migrations/`](./migrations/) (SQL + `meta/_journal.json`).
 
 | Subpath | Maps to |
 | --- | --- |
-| `@aidoris/kineti-db` | Client, env helpers, migrate, schema |
+| `@aidoris/kineti-db` | `createDb`, `getDatabaseUrl`, `runMigrations`, schema re-exports |
 | `@aidoris/kineti-db/client` | `createDb` and types |
 | `@aidoris/kineti-db/migrate` | `runMigrations` |
-| `@aidoris/kineti-db/schema` | Table definitions |
+| `@aidoris/kineti-db/schema` | All table definitions (`auth`, `ai-provider`, `ai-chat`) |
 | `@aidoris/kineti-db/schema/auth` | Better Auth tables |
+| `@aidoris/kineti-db/schema/ai-provider` | AI provider tables |
+| `@aidoris/kineti-db/schema/ai-chat` | AI chat tables |
 | `@aidoris/kineti-db/schema/*` | Individual schema modules |
 
 ## Development
@@ -129,6 +150,7 @@ bun run db:studio
 ## Links
 
 - [Monorepo root](../../README.md)
+- [@aidoris/kineti-auth](../auth/README.md)
 - [@aidoris/kineti-web](../../apps/web/README.md)
 - [Repository](https://github.com/aidoris/kineti/tree/main/packages/db)
 - [Issues](https://github.com/aidoris/kineti/issues)

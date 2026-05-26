@@ -5,6 +5,7 @@ Monorepo for **Kineti** — a Bun + Turborepo workspace with a TanStack Start we
 | Package | Path | Description |
 | --- | --- | --- |
 | `@aidoris/kineti-base` | `.` | Workspace root (not published) |
+| `@aidoris/kineti-auth` | [`packages/auth`](./packages/auth) | Better Auth, env helpers, AI provider API key encryption |
 | `@aidoris/kineti-db` | [`packages/db`](./packages/db) | Drizzle ORM schema, migrations, PostgreSQL client |
 | `@aidoris/kineti-ui` | [`packages/ui`](./packages/ui) | Shared React UI components |
 | `@aidoris/kineti-web` | [`apps/web`](./apps/web) | TanStack Start + Nitro production app |
@@ -20,13 +21,14 @@ Monorepo for **Kineti** — a Bun + Turborepo workspace with a TanStack Start we
 
 ```bash
 cp .env.example .env
+# Set BETTER_AUTH_SECRET and AI_PROVIDER_SECRETS_KEYS (see Environment below)
 docker compose up -d
 bun install
 bun run build
 bun run dev --filter=@aidoris/kineti-web
 ```
 
-The web app loads `.env` from the monorepo root and applies database migrations on server start. See [`packages/db`](./packages/db) for schema changes and [`apps/web`](./apps/web) for server details.
+The web app loads `.env` from the monorepo root and applies database migrations on server start. See [`packages/db`](./packages/db) for schema changes, [`packages/auth`](./packages/auth) for auth and API key encryption, and [`apps/web`](./apps/web) for server details.
 
 ## Environment
 
@@ -34,9 +36,14 @@ Copy [`.env.example`](./.env.example) to `.env` at the repo root:
 
 | Variable | Description |
 | --- | --- |
-| `DATABASE_URL` | PostgreSQL connection string (used by `@aidoris/kineti-db` and `@aidoris/kineti-web`) |
+| `DATABASE_URL` | PostgreSQL connection string (`@aidoris/kineti-db`, `@aidoris/kineti-web`) |
+| `BETTER_AUTH_SECRET` | Better Auth signing secret — 32+ chars (`openssl rand -base64 32`) |
+| `BETTER_AUTH_URL` | Public app URL (e.g. `http://localhost:3000`) |
+| `VITE_BETTER_AUTH_URL` | Browser client URL (usually same as `BETTER_AUTH_URL`) |
+| `AI_PROVIDER_SECRETS_ACTIVE_KEY_ID` | Active key id for encrypted provider API keys at rest |
+| `AI_PROVIDER_SECRETS_KEYS` | JSON key ring: `{"v1":"<base64-32-bytes>"}` — see [`packages/auth`](./packages/auth) |
 
-Default local URL (matches [`docker-compose.yml`](./docker-compose.yml)):
+Default local `DATABASE_URL` (matches [`docker-compose.yml`](./docker-compose.yml)):
 
 ```bash
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/kineti
@@ -66,8 +73,9 @@ docker compose down
 | `bun run lint` | Lint all packages |
 | `bun run format` | Format with Prettier |
 | `bun run typecheck` | Typecheck all packages |
+| `bun run test --filter=@aidoris/kineti-auth` | Run auth secrets unit tests |
 
-Package-specific scripts (e.g. Drizzle Kit) live in each package README.
+Package-specific scripts (e.g. Drizzle Kit, Better Auth schema generate) live in each package README.
 
 Git hooks under `.githooks/` run `bun run build` on pre-commit and are installed automatically via `postinstall`.
 
@@ -79,6 +87,7 @@ Git hooks under `.githooks/` run `bun run build` on pre-commit and are installed
 │   ├── cli/          # @aidoris/kineti-cli
 │   └── web/          # @aidoris/kineti-web (Nitro server + runtime migrations)
 ├── packages/
+│   ├── auth/         # @aidoris/kineti-auth
 │   ├── db/           # @aidoris/kineti-db
 │   └── ui/           # @aidoris/kineti-ui
 ├── docker-compose.yml

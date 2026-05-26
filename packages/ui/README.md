@@ -2,7 +2,7 @@
 
 Shared React UI library for Kineti — Tailwind CSS v4, Base UI primitives, and shadcn-style components.
 
-Used by [`@aidoris/kineti-web`](../../apps/web). Database and API concerns live in [`@aidoris/kineti-db`](../db).
+Used by [`@aidoris/kineti-web`](../../apps/web). Database, auth, and API key encryption live in [`@aidoris/kineti-db`](../db) and [`@aidoris/kineti-auth`](../auth).
 
 ## Install
 
@@ -26,8 +26,23 @@ Use components and utilities via package exports:
 
 ```tsx
 import { Button } from "@aidoris/kineti-ui/components/button"
+import { Card } from "@aidoris/kineti-ui/components/card"
 import { cn } from "@aidoris/kineti-ui/lib/utils"
 ```
+
+### Components
+
+| Component | Path |
+| --- | --- |
+| `alert` | `@aidoris/kineti-ui/components/alert` |
+| `badge` | `@aidoris/kineti-ui/components/badge` |
+| `button` | `@aidoris/kineti-ui/components/button` |
+| `card` | `@aidoris/kineti-ui/components/card` |
+| `dropdown-menu` | `@aidoris/kineti-ui/components/dropdown-menu` |
+| `field` | `@aidoris/kineti-ui/components/field` |
+| `input` | `@aidoris/kineti-ui/components/input` |
+| `label` | `@aidoris/kineti-ui/components/label` |
+| `separator` | `@aidoris/kineti-ui/components/separator` |
 
 ## Exports
 
@@ -36,7 +51,8 @@ import { cn } from "@aidoris/kineti-ui/lib/utils"
 | `@aidoris/kineti-ui/globals.css` | `src/styles/globals.css` |
 | `@aidoris/kineti-ui/components/*` | `src/components/*.tsx` |
 | `@aidoris/kineti-ui/lib/*` | `src/lib/*.ts` |
-| `@aidoris/kineti-ui/hooks/*` | `src/hooks/*.ts` |
+
+The `hooks/*` export is reserved in `package.json` for future hooks; no hook modules are published yet.
 
 ## Development
 

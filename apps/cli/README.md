@@ -2,7 +2,7 @@
 
 Command-line interface for Kineti. Installs the `kineti` binary globally or per-project.
 
-Does not depend on `@aidoris/kineti-db`; database and web setup are documented in the [monorepo root](../../README.md).
+Does not depend on `@aidoris/kineti-db` or `@aidoris/kineti-auth`. Database, auth, and web setup are documented in the [monorepo root](../../README.md).
 
 ## Install
 
