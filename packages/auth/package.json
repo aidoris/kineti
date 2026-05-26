@@ -24,7 +24,8 @@
     "auth:generate-schema": "better-auth generate --config ./src/auth.generate.ts --output ../db/src/schema/auth.ts --yes",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "bun test src/secrets"
   },
   "dependencies": {
     "@aidoris/kineti-db": "workspace:*",
@@ -44,6 +45,7 @@
     ".": "./src/index.ts",
     "./auth": "./src/auth.ts",
     "./client": "./src/client.ts",
-    "./env": "./src/env.ts"
+    "./env": "./src/env.ts",
+    "./secrets": "./src/secrets/index.ts"
   }
 }
