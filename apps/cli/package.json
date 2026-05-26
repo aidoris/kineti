@@ -13,6 +13,7 @@
     "url": "https://github.com/aidoris/kineti/issues"
   },
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   },
   "files": [

@@ -48,7 +48,7 @@ Git hooks under `.githooks/` run `bun run build` on pre-commit and are installed
 
 ## Publishing
 
-Scoped packages use `publishConfig.access: public`. See each package README and [`.env.example`](./.env.example) for npm token setup.
+Scoped `@aidoris/*` packages publish to [GitHub Packages](https://npm.pkg.github.com) (`publishConfig.registry`). Copy [`.env.example`](./.env.example) to `.env` and set `NPM_TOKEN` to a GitHub PAT with `write:packages` (or run `NPM_TOKEN=$(gh auth token)` if `gh` is logged in).
 
 ## License
 
