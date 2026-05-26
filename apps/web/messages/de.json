@@ -5,6 +5,7 @@
   "root.nav.login": "Anmelden",
   "root.nav.signup": "Registrieren",
   "root.nav.sign_out": "Abmelden",
+  "root.profile.menu_label": "Kontomenü öffnen",
   "root.not_found.title": "404",
   "root.not_found.description": "Die angeforderte Seite wurde nicht gefunden.",
   "root.footer.tagline": "Moderne Authentifizierung für TanStack-Start-Apps.",

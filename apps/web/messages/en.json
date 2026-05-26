@@ -5,6 +5,7 @@
   "root.nav.login": "Sign in",
   "root.nav.signup": "Sign up",
   "root.nav.sign_out": "Sign out",
+  "root.profile.menu_label": "Open account menu",
   "root.not_found.title": "404",
   "root.not_found.description": "The requested page could not be found.",
   "root.footer.tagline": "Modern auth for TanStack Start apps.",

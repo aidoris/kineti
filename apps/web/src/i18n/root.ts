@@ -13,6 +13,9 @@ export const root = {
     tagline: m["root.footer.tagline"],
     copyright: m["root.footer.copyright"],
   },
+  profile: {
+    menuLabel: m["root.profile.menu_label"],
+  },
   notFound: {
     title: m["root.not_found.title"],
     description: m["root.not_found.description"],
