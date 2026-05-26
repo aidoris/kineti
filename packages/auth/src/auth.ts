@@ -2,6 +2,7 @@ import { createDb } from "@aidoris/kineti-db"
 import * as authSchema from "@aidoris/kineti-db/schema/auth"
 import { drizzleAdapter } from "@better-auth/drizzle-adapter"
 import { betterAuth } from "better-auth"
+import { tanstackStartCookies } from "better-auth/tanstack-start"
 import { getBetterAuthSecret, getBetterAuthUrl } from "./env"
 import type { BetterAuthOptions } from "better-auth"
 
@@ -20,6 +21,7 @@ export type CreateAuthOptions = {
 
 export const createAuth = (options: CreateAuthOptions = {}) => {
   const { db } = options.db ? { db: options.db } : createDb()
+  const { plugins: extraPlugins, ...restConfig } = options.config ?? {}
 
   return betterAuth({
     secret: options.secret ?? getBetterAuthSecret(),
@@ -28,7 +30,8 @@ export const createAuth = (options: CreateAuthOptions = {}) => {
     emailAndPassword: {
       enabled: true,
     },
-    ...options.config,
+    ...restConfig,
+    plugins: [...(extraPlugins ?? []), tanstackStartCookies()],
     database: drizzleAdapter(db, {
       provider: "pg",
       schema: authSchema,

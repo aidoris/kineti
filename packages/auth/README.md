@@ -33,6 +33,8 @@ export const auth = createAuth()
 export const handler = auth.handler
 ```
 
+`createAuth` includes the [`tanstackStartCookies`](https://www.better-auth.com/docs/integrations/tanstack) plugin (always last) so session cookies work in TanStack Start.
+
 Pass an existing DB client when the app already owns the connection:
 
 ```ts
