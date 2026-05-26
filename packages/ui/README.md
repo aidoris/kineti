@@ -2,6 +2,8 @@
 
 Shared React UI library for Kineti — Tailwind CSS v4, Base UI primitives, and shadcn-style components.
 
+Used by [`@aidoris/kineti-web`](../../apps/web). Database and API concerns live in [`@aidoris/kineti-db`](../db).
+
 ## Install
 
 ```bash
@@ -48,5 +50,6 @@ bun run typecheck --filter=@aidoris/kineti-ui
 ## Links
 
 - [Monorepo root](../../README.md)
+- [@aidoris/kineti-web](../../apps/web/README.md)
 - [Repository](https://github.com/aidoris/kineti/tree/main/packages/ui)
 - [Issues](https://github.com/aidoris/kineti/issues)
