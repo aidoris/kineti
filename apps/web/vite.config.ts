@@ -12,6 +12,7 @@ const appDir = dirname(fileURLToPath(import.meta.url))
 const monorepoRoot = resolve(appDir, "../..")
 
 const config = defineConfig({
+  envDir: monorepoRoot,
   plugins: [
     nitro({
       serverDir: "./server",

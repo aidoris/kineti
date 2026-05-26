@@ -37,6 +37,7 @@
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-start": "catalog:",
     "@tanstack/router-plugin": "catalog:",
+    "@aidoris/kineti-auth": "workspace:*",
     "@aidoris/kineti-db": "workspace:*",
     "@aidoris/kineti-ui": "workspace:*",
     "nitro": "catalog:",

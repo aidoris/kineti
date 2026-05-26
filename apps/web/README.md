@@ -8,6 +8,7 @@ Production web application for Kineti — [TanStack Start](https://tanstack.com/
 | --- | --- |
 | [`@aidoris/kineti-ui`](../packages/ui) | Shared components and styles |
 | [`@aidoris/kineti-db`](../packages/db) | PostgreSQL via Drizzle ORM |
+| [`@aidoris/kineti-auth`](../packages/auth) | Better Auth (Drizzle + TanStack Start cookies) |
 
 ## Database migrations
 
@@ -50,6 +51,9 @@ node --env-file=../../.env .output/server/index.mjs
 | Variable | Default | Description |
 | --- | --- | --- |
 | `DATABASE_URL` | — | PostgreSQL connection string (required) |
+| `BETTER_AUTH_SECRET` | — | Auth signing secret (32+ chars) |
+| `BETTER_AUTH_URL` | — | Public app URL (e.g. `http://localhost:3000`) |
+| `VITE_BETTER_AUTH_URL` | — | Same as `BETTER_AUTH_URL` for the browser client |
 | `PORT` / `NITRO_PORT` | `3000` | HTTP listen port |
 
 In the monorepo, Vite `envDir` points at the repo root so `vite dev` loads [`.env`](../../.env) automatically.

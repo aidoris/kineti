@@ -37,6 +37,7 @@
         "kineti-web": "./bin/start.mjs",
       },
       "dependencies": {
+        "@aidoris/kineti-auth": "workspace:*",
         "@aidoris/kineti-db": "workspace:*",
         "@aidoris/kineti-ui": "workspace:*",
         "@phosphor-icons/react": "catalog:",
