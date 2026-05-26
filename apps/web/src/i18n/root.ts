@@ -6,6 +6,12 @@ export const root = {
   nav: {
     home: m["root.nav.home"],
     login: m["root.nav.login"],
+    signup: m["root.nav.signup"],
+    signOut: m["root.nav.sign_out"],
+  },
+  footer: {
+    tagline: m["root.footer.tagline"],
+    copyright: m["root.footer.copyright"],
   },
   notFound: {
     title: m["root.not_found.title"],

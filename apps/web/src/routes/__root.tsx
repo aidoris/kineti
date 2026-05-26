@@ -1,11 +1,14 @@
 import { HeadContent, Link, Scripts, createRootRoute } from "@tanstack/react-router"
 
 import appCss from "@aidoris/kineti-ui/globals.css?url"
-import { LocaleSwitcher } from "@/components/locale-switcher"
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
 import { root } from "@/i18n/root"
+import { getSession } from "@/lib/auth.functions"
 import { getLocale } from "@/paraglide/runtime.js"
 
 export const Route = createRootRoute({
+  loader: () => getSession(),
   head: () => ({
     meta: [
       {
@@ -26,14 +29,24 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: () => (
-    <main className="container mx-auto p-4 pt-16">
-      <h1>{root.notFound.title()}</h1>
-      <p>{root.notFound.description()}</p>
-    </main>
-  ),
+  notFoundComponent: NotFoundPage,
   shellComponent: RootDocument,
 })
+
+function NotFoundPage() {
+  return (
+    <main className="container mx-auto flex flex-1 flex-col items-center justify-center gap-4 px-4 py-24 text-center">
+      <p className="font-heading text-4xl font-semibold">{root.notFound.title()}</p>
+      <p className="max-w-md text-muted-foreground">{root.notFound.description()}</p>
+      <Link
+        to="/"
+        className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+      >
+        {root.nav.home()}
+      </Link>
+    </main>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -41,23 +54,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
-        <header className="flex items-center justify-between gap-4 border-b p-4">
-          <nav className="flex gap-4 text-sm">
-            <Link
-              to="/"
-              activeProps={{ className: "font-medium" }}
-              activeOptions={{ exact: true }}
-            >
-              {root.nav.home()}
-            </Link>
-            <Link to="/login" activeProps={{ className: "font-medium" }}>
-              {root.nav.login()}
-            </Link>
-          </nav>
-          <LocaleSwitcher />
-        </header>
-        {children}
+      <body className="font-mono antialiased">
+        <div className="flex min-h-svh flex-col">
+          <SiteHeader />
+          <main className="flex flex-1 flex-col">{children}</main>
+          <SiteFooter />
+        </div>
         <Scripts />
       </body>
     </html>

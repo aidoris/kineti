@@ -1,22 +1,75 @@
+import { CaretDownIcon, GlobeIcon } from "@phosphor-icons/react"
+import { Button } from "@aidoris/kineti-ui/components/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@aidoris/kineti-ui/components/dropdown-menu"
+import { cn } from "@aidoris/kineti-ui/lib/utils"
 import { getLocale, locales, setLocale } from "@/paraglide/runtime.js"
 
-export const LocaleSwitcher = () => {
+type Locale = (typeof locales)[number]
+
+const localeLabels: Record<Locale, string> = {
+  en: "English",
+  de: "Deutsch",
+}
+
+type LocaleSwitcherProps = {
+  align?: "start" | "center" | "end"
+  className?: string
+  variant?: "outline" | "ghost"
+  size?: "sm" | "default"
+}
+
+export const LocaleSwitcher = ({
+  align = "end",
+  className,
+  variant = "outline",
+  size = "sm",
+}: LocaleSwitcherProps) => {
   const activeLocale = getLocale()
 
+  const handleLocaleChange = (value: string | null) => {
+    if (!value || value === activeLocale) {
+      return
+    }
+
+    setLocale(value as Locale)
+  }
+
   return (
-    <div className="flex gap-2" role="group" aria-label="Language">
-      {locales.map((locale) => (
-        <button
-          key={locale}
-          type="button"
-          onClick={() => setLocale(locale)}
-          data-active-locale={locale === activeLocale}
-          aria-pressed={locale === activeLocale}
-          className="border-input cursor-pointer rounded-md border px-2 py-1 text-sm uppercase data-[active-locale=true]:bg-primary data-[active-locale=true]:text-primary-foreground"
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant={variant}
+            size={size}
+            className={cn("gap-1.5 uppercase", className)}
+            aria-label="Language"
+          />
+        }
+      >
+        <GlobeIcon aria-hidden />
+        <span>{localeLabels[activeLocale]}</span>
+        <CaretDownIcon className="size-3 opacity-60" aria-hidden />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align={align} className="min-w-36">
+        <DropdownMenuRadioGroup
+          value={activeLocale}
+          onValueChange={handleLocaleChange}
         >
-          {locale}
-        </button>
-      ))}
-    </div>
+          <DropdownMenuLabel>Language</DropdownMenuLabel>
+          {locales.map((locale) => (
+            <DropdownMenuRadioItem key={locale} value={locale}>
+              {localeLabels[locale]}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
