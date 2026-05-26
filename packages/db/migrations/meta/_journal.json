@@ -15,6 +15,13 @@
       "when": 1779803140228,
       "tag": "0001_ai_provider",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779803583773,
+      "tag": "0002_ai_chat",
+      "breakpoints": true
     }
   ]
 }
