@@ -47,6 +47,7 @@
     "vite-tsconfig-paths": "catalog:"
   },
   "devDependencies": {
+    "@inlang/paraglide-js": "catalog:",
     "@tanstack/eslint-config": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

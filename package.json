@@ -79,7 +79,8 @@
       "zod": "^3.25.76",
       "@better-auth/cli": "^1.4.22",
       "@better-auth/drizzle-adapter": "^1.6.11",
-      "better-auth": "^1.6.11"
+      "better-auth": "^1.6.11",
+      "@inlang/paraglide-js": "^2.4.0"
     }
   }
 }
