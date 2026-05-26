@@ -1,6 +1,20 @@
 import { relations } from "drizzle-orm"
 import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
+import {
+  aiChatAttachment,
+  aiChatMessage,
+  aiChatPreset,
+  aiChatSession,
+} from "./ai-chat"
+import {
+  aiProvider,
+  aiProviderConfiguration,
+  aiProviderModel,
+  aiProviderModelAlias,
+  aiProviderModelTokenUsage,
+} from "./ai-provider"
+
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -76,6 +90,15 @@ export const verification = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  aiProviders: many(aiProvider),
+  aiProviderConfigurations: many(aiProviderConfiguration),
+  aiProviderModels: many(aiProviderModel),
+  aiProviderModelAliases: many(aiProviderModelAlias),
+  aiProviderModelTokenUsages: many(aiProviderModelTokenUsage),
+  aiChatPresets: many(aiChatPreset),
+  aiChatSessions: many(aiChatSession),
+  aiChatMessages: many(aiChatMessage),
+  aiChatAttachments: many(aiChatAttachment),
 }))
 
 export const sessionRelations = relations(session, ({ one }) => ({
