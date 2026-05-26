@@ -1,0 +1,51 @@
+{
+  "name": "@aidoris/kineti-db",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "Pranav Sukumara Kurup <pranavs.nkm@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidoris/kineti.git",
+    "directory": "packages/db"
+  },
+  "homepage": "https://github.com/aidoris/kineti#readme",
+  "bugs": {
+    "url": "https://github.com/aidoris/kineti/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "src",
+    "migrations"
+  ],
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "lint": "eslint",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "drizzle-orm": "catalog:",
+    "postgres": "catalog:"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-config": "catalog:",
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./migrate": "./src/migrate.ts",
+    "./schema": "./src/schema/index.ts",
+    "./schema/*": "./src/schema/*.ts"
+  }
+}
