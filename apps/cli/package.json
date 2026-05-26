@@ -31,13 +31,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "commander": "^14.0.3"
+    "commander": "catalog:"
   },
   "devDependencies": {
-    "@tanstack/eslint-config": "^0.3.0",
-    "@types/node": "^25.1.0",
-    "eslint": "^9.39.2",
-    "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "@tanstack/eslint-config": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
   }
 }
