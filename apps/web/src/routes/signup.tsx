@@ -4,6 +4,7 @@ import { WarningCircleIcon } from "@phosphor-icons/react"
 import { Alert, AlertDescription } from "@aidoris/kineti-ui/components/alert"
 import {
   Field,
+  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -11,17 +12,18 @@ import {
 import { Input } from "@aidoris/kineti-ui/components/input"
 import { SubmitButton } from "@/components/auth/submit-button"
 import { AuthPageLayout } from "@/components/auth-page-layout"
-import { login } from "@/i18n/login"
+import { signup } from "@/i18n/signup"
 import { authClient } from "@/lib/auth-client"
 import { redirectIfAuthenticated } from "@/lib/redirect-if-authenticated"
 
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute("/signup")({
   beforeLoad: redirectIfAuthenticated,
-  component: LoginPage,
+  component: SignupPage,
 })
 
-function LoginPage() {
+function SignupPage() {
   const navigate = useNavigate()
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
@@ -33,10 +35,10 @@ function LoginPage() {
     setIsPending(true)
 
     try {
-      const result = await authClient.signIn.email({ email, password })
+      const result = await authClient.signUp.email({ name, email, password })
 
       if (result.error) {
-        setError(result.error.message ?? "Sign in failed")
+        setError(result.error.message ?? "Sign up failed")
         return
       }
 
@@ -52,17 +54,17 @@ function LoginPage() {
 
   return (
     <AuthPageLayout
-      title={login.signInTitle()}
-      description={login.description()}
-      backLabel={login.backHome()}
+      title={signup.signUpTitle()}
+      description={signup.description()}
+      backLabel={signup.backHome()}
       footer={
         <>
-          {login.noAccount()}{" "}
+          {signup.hasAccount()}{" "}
           <Link
-            to="/signup"
+            to="/login"
             className="font-medium text-foreground underline-offset-4 hover:underline"
           >
-            {login.signUpLink()}
+            {signup.signInLink()}
           </Link>
         </>
       }
@@ -74,9 +76,23 @@ function LoginPage() {
         >
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="login-email">{login.emailLabel()}</FieldLabel>
+              <FieldLabel htmlFor="signup-name">{signup.nameLabel()}</FieldLabel>
               <Input
-                id="login-email"
+                id="signup-name"
+                type="text"
+                name="name"
+                autoComplete="name"
+                required
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                aria-invalid={error ? true : undefined}
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="signup-email">{signup.emailLabel()}</FieldLabel>
+              <Input
+                id="signup-email"
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -88,18 +104,19 @@ function LoginPage() {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="login-password">{login.passwordLabel()}</FieldLabel>
+              <FieldLabel htmlFor="signup-password">{signup.passwordLabel()}</FieldLabel>
               <Input
-                id="login-password"
+                id="signup-password"
                 type="password"
                 name="password"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 required
                 minLength={8}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 aria-invalid={error ? true : undefined}
               />
+              <FieldDescription>{signup.passwordHint()}</FieldDescription>
             </Field>
 
             {error ? (
@@ -113,8 +130,8 @@ function LoginPage() {
 
             <SubmitButton
               isPending={isPending}
-              label={login.submit.signIn()}
-              pendingLabel={login.submit.wait()}
+              label={signup.submit.signUp()}
+              pendingLabel={signup.submit.wait()}
             />
           </FieldGroup>
         </fieldset>
